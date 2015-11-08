@@ -9,11 +9,10 @@ data = read.csv("household_power_consumption.txt", sep = ";", na.strings = c("?"
 data =  data %>%
   mutate(Date = as.Date(Date, "%d/%m/%Y")) %>%
   filter(Date >= as.Date("2007-02-01") & Date <= as.Date("2007-02-02")) %>%
-  mutate(datetime = as.POSIXct(paste(Date, Time, sep = " "), format = "%Y-%m-%d %H:%M:%S")) %>%
-  select(datetime, Global_active_power)
+  mutate(datetime = as.POSIXct(paste(Date, Time, sep = " "), format = "%Y-%m-%d %H:%M:%S"))
 
 png(filename="plot2.png")
-plot(data,
+plot(select(data, datetime, Global_active_power),
      type = "l",
      # labels of the x & y axis
      ylab = "Global Active Power (kilowatts)",
